@@ -37,7 +37,9 @@ function isBufferAutoplaySupported (cb, audioContext) {
   })
 
   function finish (result) {
-    if (isTempContext) audioContext.close()
+    if (isTempContext && typeof audioContext.close === 'function') {
+      audioContext.close()
+    }
     cb(result)
   }
 }

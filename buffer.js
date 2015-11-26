@@ -8,6 +8,12 @@ function isBufferAutoplaySupported (cb, audioContext) {
   }
 
   var AudioCtor = window.AudioContext || window.webkitAudioContext
+  if (!AudioCtor) { // no WebAudio support
+    return process.nextTick(function () {
+      cb(false)
+    })
+  }
+
   var isTempContext = false
   if (!audioContext) {
     isTempContext = true

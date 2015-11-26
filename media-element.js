@@ -18,8 +18,11 @@ function isAutoplaySupported (cb, timeoutDelay) {
     audio = new window.Audio()
     audio.autoplay = true
     audio.volume = 0
+    audio.crossOrigin = 'Anonymous'
     audio.addEventListener('play', done, false)
     audio.src = mp3
+    audio.load()
+    audio.play()
   } catch (e) {
     cb(false)
     cb = noop

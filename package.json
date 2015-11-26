@@ -1,0 +1,40 @@
+{
+  "name": "detect-audio-autoplay",
+  "version": "1.0.0",
+  "description": "detects whether the browser can auto-play audio",
+  "main": "media-element.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl"
+  },
+  "dependencies": {
+    "silent-mp3-datauri": "^1.0.0",
+    "xhr": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "detect",
+    "audio",
+    "autoplay",
+    "web",
+    "audio",
+    "webaudio",
+    "play",
+    "browser",
+    "mobile",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Jam3/detect-audio-autoplay.git"
+  },
+  "homepage": "https://github.com/Jam3/detect-audio-autoplay",
+  "bugs": {
+    "url": "https://github.com/Jam3/detect-audio-autoplay/issues"
+  }
+}

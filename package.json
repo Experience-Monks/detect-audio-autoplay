@@ -1,6 +1,6 @@
 {
   "name": "detect-audio-autoplay",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "detects whether the browser can auto-play audio",
   "main": "media-element.js",
   "license": "MIT",

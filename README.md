@@ -2,7 +2,7 @@
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
-Detects whether the browser can auto-play audio. This tries to load a dummy silent MP3 datauri as an `<audio>` source, and waits for a `'play'` event.
+Detects whether the browser can auto-play audio. This tries to load a dummy silent MP3 or OGG datauri as an `<audio>` source, and waits for a `'play'` event.
 
 For accurate results, you should call this early in your program, before any user gestures.
 
@@ -36,7 +36,7 @@ autoplay(function (supported) {
 
 Detects whether an `<audio>` element can autoplay in the current browser. The callback is called with a boolean, `true` if supported, `false` otherwise.
 
-If the dummy MP3 does not play after `defaultTimeout` (default 300ms), we assume the device cannot autoplay it.
+If the dummy MP3 or OGG does not play after `defaultTimeout` (default 300ms), we assume the device cannot autoplay it.
 
 ## Buffered Autoplay
 
@@ -54,7 +54,7 @@ Usage:
 
 ##### `detectBuffer(cb, [audioContext])`
 
-Detects whether a dummy MP3 can be loaded and decoded using the `audioContext` (defaults to a new audio context which will get cleaned up).
+Detects whether a dummy MP3 or OGG can be loaded and decoded using the `audioContext` (defaults to a new audio context which will get cleaned up).
 
 ## License
 

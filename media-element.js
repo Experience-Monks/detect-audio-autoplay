@@ -1,4 +1,4 @@
-var mp3 = require('silent-mp3-datauri')
+var getSrc = require('./lib/get-src')
 var DEFAULT_TIMEOUT = 300
 var noop = function () {}
 
@@ -11,21 +11,32 @@ function isAutoplaySupported (cb, timeoutDelay) {
 
   var audio, timeout
   try {
+    audio = new window.Audio()
+
+    var src = getSrc(audio)
+    if (!src) { // can't autoplay any format
+      return process.nextTick(function () {
+        cb(false)
+      })
+    }
+
     timeout = setTimeout(function () {
       cb(false)
       cb = noop
     }, timeoutDelay)
-    audio = new window.Audio()
+
     audio.autoplay = true
     audio.volume = 0
     audio.crossOrigin = 'Anonymous'
     audio.addEventListener('play', done, false)
-    audio.src = mp3
+    audio.src = src
     audio.load()
     audio.play()
   } catch (e) {
-    cb(false)
-    cb = noop
+    process.nextTick(function () {
+      cb(false)
+      cb = noop
+    })
   }
 
   function done () {

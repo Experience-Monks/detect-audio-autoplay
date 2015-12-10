@@ -1,4 +1,4 @@
-var mp3 = require('silent-mp3-datauri')
+var getSrc = require('./lib/get-src')
 var xhr = require('xhr')
 
 module.exports = isBufferAutoplaySupported
@@ -7,8 +7,9 @@ function isBufferAutoplaySupported (cb, audioContext) {
     throw new TypeError('must specify a cb function')
   }
 
+  var src = getSrc()
   var AudioCtor = window.AudioContext || window.webkitAudioContext
-  if (!AudioCtor) { // no WebAudio support
+  if (!src || !AudioCtor) { // no WebAudio support
     return process.nextTick(function () {
       cb(false)
     })
@@ -23,11 +24,11 @@ function isBufferAutoplaySupported (cb, audioContext) {
   xhr({
     // iOS 0.2 Safari doesn't support XHR + DataURI
     // but that's OK since it also dosen't support autoplay.
-    uri: mp3,
+    uri: src,
     responseType: 'arraybuffer'
   }, function (err, resp, arrayBuf) {
     if (err || !/^2/.test(resp.statusCode)) {
-      return finish(err.message)
+      return finish(false)
     }
     audioContext.decodeAudioData(arrayBuf, function (buffer) {
       finish(typeof buffer.duration === 'number' && buffer.duration > 0)

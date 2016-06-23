@@ -27,11 +27,21 @@ function isAutoplaySupported (cb, timeoutDelay) {
 
     audio.autoplay = true
     audio.volume = 0
-    audio.crossOrigin = 'Anonymous'
     audio.addEventListener('play', done, false)
     audio.src = src
     audio.load()
-    audio.play()
+    var promise = audio.play()
+
+    // latest browsers are returning a promise for play()
+    if (promise && typeof promise.then === 'function') {
+      audio.removeEventListener('play', done, false)
+      promise.then(function () {
+        done() // play was successful
+      }, function (err) {
+        cb(false)
+        cb = noop
+      })
+    }
   } catch (e) {
     process.nextTick(function () {
       cb(false)
